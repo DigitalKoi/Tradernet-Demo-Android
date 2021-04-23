@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Tradernet Demo</string>
+    <string name="title_home">Home</string>
 </resources>

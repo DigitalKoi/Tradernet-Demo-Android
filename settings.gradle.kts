@@ -1,8 +1,9 @@
 include(
     ":app",
+    ":core",
+    ":features:home",
     ":commons:ui",
     ":commons:views",
-    ":core",
     ":libraries:test_utils"
 )
 

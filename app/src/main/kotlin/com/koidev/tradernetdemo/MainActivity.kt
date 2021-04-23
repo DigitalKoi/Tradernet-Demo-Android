@@ -1,11 +1,11 @@
 package com.koidev.tradernetdemo
 
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import com.koidev.android.R
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
-}
+/**
+ * Base activity class that use the support library action bar features.
+ *
+ * @see AppCompatActivity
+ */
+class MainActivity : AppCompatActivity(R.layout.activity_main)
