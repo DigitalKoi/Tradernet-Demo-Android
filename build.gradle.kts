@@ -11,3 +11,9 @@ allprojects {
     plugins.apply(BuildPlugins.KTLINT)
     plugins.apply(BuildPlugins.SPOTLESS)
 }
+buildscript {
+    val kotlin_version by extra("1.4.32")
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+    }
+}

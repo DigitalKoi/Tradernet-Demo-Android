@@ -1,5 +1,7 @@
 include(
-    ":app"
+    ":app",
+    ":commons:ui",
+    ":commons:views"
 )
 
-rootProject.buildFileName = "build.gradle.kts.kts"
+rootProject.buildFileName = "build.gradle.kts"
