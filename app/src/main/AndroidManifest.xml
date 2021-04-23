@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="com.koidev.tradernetdemo.TradernetApp"
         android:fullBackupContent="true"
         android:allowBackup="false"
         android:extractNativeLibs="false"
@@ -16,6 +17,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:theme="@style/AppTheme"
         tools:targetApi="m">
         <activity android:name="com.koidev.tradernetdemo.MainActivity">
             <intent-filter>

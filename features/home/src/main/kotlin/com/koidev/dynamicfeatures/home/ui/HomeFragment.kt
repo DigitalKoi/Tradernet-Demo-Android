@@ -11,7 +11,10 @@ import com.koidev.commons.ui.extensions.setupWithNavController
 import com.koidev.core.utils.ThemeUtils
 import com.koidev.dynamicfeatures.home.R
 import com.koidev.dynamicfeatures.home.databinding.FragmentHomeBinding
+import com.koidev.dynamicfeatures.home.ui.di.DaggerHomeComponent
+import com.koidev.dynamicfeatures.home.ui.di.HomeModule
 import com.koidev.dynamicfeatures.home.ui.menu.ToggleThemeCheckBox
+import com.koidev.tradernetdemo.TradernetApp
 import javax.inject.Inject
 
 private const val DELAY_TO_APPLY_THEME = 1000L
@@ -87,12 +90,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
      * Initialize dagger injection dependency graph.
      */
     override fun onInitDependencyInjection() {
-//        DaggerHomeComponent
-//            .builder()
-//            .coreComponent(TradernetApp.coreComponent(requireContext()))
-//            .homeModule(HomeModule(this))
-//            .build()
-//            .inject(this)
+        DaggerHomeComponent
+            .builder()
+            .coreComponent(TradernetApp.coreComponent(requireContext()))
+            .homeModule(HomeModule(this))
+            .build()
+            .inject(this)
     }
 
     /**
