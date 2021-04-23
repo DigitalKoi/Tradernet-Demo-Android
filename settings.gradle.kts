@@ -1,3 +1,4 @@
+include(":test_utils")
 include(
     ":app",
     ":commons:ui",
