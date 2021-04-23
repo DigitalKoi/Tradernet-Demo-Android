@@ -7,6 +7,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.koidev.commons.ui.base.BaseFragment
+import com.koidev.commons.ui.extensions.setupWithNavController
 import com.koidev.core.utils.ThemeUtils
 import com.koidev.dynamicfeatures.home.R
 import com.koidev.dynamicfeatures.home.databinding.FragmentHomeBinding
