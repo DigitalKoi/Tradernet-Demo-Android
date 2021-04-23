@@ -16,7 +16,9 @@
             <option value="$PROJECT_DIR$/commons" />
             <option value="$PROJECT_DIR$/commons/ui" />
             <option value="$PROJECT_DIR$/commons/views" />
-            <option value="$PROJECT_DIR$/test_utils" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/libraries" />
+            <option value="$PROJECT_DIR$/libraries/test_utils" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

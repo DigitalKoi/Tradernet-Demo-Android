@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import com.koidev.commons.ui.extensions.getString
 import com.koidev.commons.views.databinding.ViewProgressDialogBinding
 
 /**

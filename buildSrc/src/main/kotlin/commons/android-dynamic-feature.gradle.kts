@@ -23,10 +23,10 @@ plugins {
     id("com.vanniktech.dependency.graph.generator")
 }
 
-//allOpen {
+allOpen {
     // allows mocking for classes w/o directly opening them for release builds
-//    annotation("com.koidev.core.annotations.OpenClass")
-//}
+    annotation("com.koidev.core.annotations.OpenClass")
+}
 
 android {
     compileSdkVersion(BuildAndroidConfig.COMPILE_SDK_VERSION)
@@ -92,6 +92,7 @@ junitJacoco {
 
 dependencies {
     implementation(project(BuildModules.APP))
+    implementation(project(BuildModules.CORE))
     implementation(project(BuildModules.Commons.UI))
 
     implementation(Dependencies.KOTLIN)

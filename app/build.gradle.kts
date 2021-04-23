@@ -110,6 +110,7 @@ junitJacoco {
 }
 
 dependencies {
+    implementation(project(BuildModules.CORE))
 
     implementation(Dependencies.KOTLIN)
     implementation(Dependencies.APPCOMPAT)

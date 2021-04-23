@@ -1,8 +1,9 @@
-include(":test_utils")
 include(
     ":app",
     ":commons:ui",
-    ":commons:views"
+    ":commons:views",
+    ":core",
+    ":libraries:test_utils"
 )
 
 rootProject.buildFileName = "build.gradle.kts"
