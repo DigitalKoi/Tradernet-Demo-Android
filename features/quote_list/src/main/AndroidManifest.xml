@@ -1,0 +1,21 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="com.koidev.dynamicfeatures.quotelist">
+
+    <dist:module
+        dist:instant="true"
+        dist:title="@string/feature_quote_list">
+        <dist:delivery>
+            <dist:install-time />
+        </dist:delivery>
+        <dist:fusing dist:include="false" />
+    </dist:module>
+
+    <application
+        android:supportsRtl="true"
+        tools:ignore="AllowBackup,MissingApplicationIcon" />
+
+</manifest>
+
+

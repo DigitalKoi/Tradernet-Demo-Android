@@ -7,6 +7,7 @@ object BuildModules {
 
     object Features {
         const val HOME = ":features:home"
+        const val QUOTE_LIST = ":features:quote_list"
     }
 
     object Commons {

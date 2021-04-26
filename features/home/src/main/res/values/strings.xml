@@ -1,6 +1,6 @@
 <resources>
     <!--Home tab items-->
-    <string name="home_tab_list">List</string>
+    <string name="home_tab_list">Quote List</string>
     <string name="home_tab_favorites">Favorites</string>
 
     <!--Home toolbar items-->

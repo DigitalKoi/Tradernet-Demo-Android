@@ -31,9 +31,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(
     @Inject
     lateinit var themeUtils: ThemeUtils
 
-    private val navGraphIds = emptyList<Int>(
-//        R.navigation.navigation_list_graph,
-//        R.navigation.navigation_favorites_graph
+    private val navGraphIds = listOf(
+        R.navigation.navigation_quote_list_graph,
+        R.navigation.navigation_quote_favorites_graph
     )
 
     /**

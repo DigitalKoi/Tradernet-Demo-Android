@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Quote list-->
+    <dimen name="quote_list_item_size">140dp</dimen>
+    <dimen name="quote_list_item_text_padding">15dp</dimen>
+
+    <!--Quote detail-->
+    <dimen name="quote_detail_app_bar_height">450dp</dimen>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Quote list-->
+    <string name="quote_list_empty_text">Empty quote list</string>
+    <string name="quote_list_error_text">Ups… an error occurred on obtain quote list, please swipe down to try again</string>
+    <string name="quote_list_add_error_text">Error on fetch more quotes</string>
+    <string name="quote_list_add_retry_button">Retry</string>
+
+    <!--Quote detail-->
+    <string name="quote_detail_dialog_loading_text">Loading detail…</string>
+    <string name="quote_detail_dialog_error_text">Error on obtain detail, please try later.</string>
+    <string name="quote_detail_added_to_favorite_message">Added to your favorite list</string>
+    <string name="quote_detail_image_content_description">Image of the selected quote</string>
+    <string name="quote_detail_floating_button_content_description">Add quote to favorite</string>
+</resources>

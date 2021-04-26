@@ -61,7 +61,8 @@ android {
     }
 
     dynamicFeatures = mutableSetOf(
-            BuildModules.Features.HOME
+        BuildModules.Features.HOME,
+        BuildModules.Features.QUOTE_LIST
     )
 
     buildFeatures {
