@@ -2,12 +2,16 @@ package com.koidev.commons.ui.bindings
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.databinding.BindingAdapter
 import coil.load
 import com.koidev.commons.ui.R
+import timber.log.Timber
 import kotlin.random.Random
 
 /**

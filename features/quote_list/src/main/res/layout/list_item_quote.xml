@@ -6,7 +6,7 @@
 
         <variable
             name="quote"
-            type="com.koidev.dynamicfeatures.quotelist.ui.list.model.QuoteItem" />
+            type="com.koidev.core.domain.Quote" />
 
         <variable
             name="viewModel"
@@ -14,42 +14,73 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> viewModel.openCharacterDetail(quote.id)}"
+        app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="@dimen/quote_list_item_corner_radius"
-        app:cardElevation="@dimen/quote_list_item_elevation"
-        app:cardBackgroundColor="@android:color/transparent">
+        app:cardElevation="@dimen/quote_list_item_elevation">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/AppTheme.SurfaceStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/AppTheme.SurfaceStyle">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/quote_image"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/quote_list_item_size"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{quote.imageUrl}"
-                app:layout_constraintBottom_toTopOf="@+id/quote_name"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:imageUrl="@{quote.image}"
+                android:background="@android:color/transparent"
+                app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="12dp"
+                app:layout_constraintTop_toTopOf="@id/quote_ticker"
+                app:layout_constraintBottom_toBottomOf="@id/quote_ticker"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/quote_name"
+                android:id="@+id/quote_ticker"
+                style="@style/TextAppearance.CardTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/quote_list_item_text_padding"
+                android:text="@{quote.ticker}"
+                app:layout_constraintStart_toEndOf="@id/quote_image"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Quote ticker" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/quote_name"
+                style="@style/TextAppearance.Body"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:text="@{quote.name}"
+                app:layout_constraintEnd_toStartOf="@id/quote_change_last_deal"
+                app:layout_constraintStart_toStartOf="@id/quote_image"
+                app:layout_constraintTop_toBottomOf="@id/quote_ticker"
+                tools:text="Quote name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/pcp"
+                style="@style/TextAppearance.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{quote.pcp}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/quote_image"
+                tools:text="-0.58%" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/quote_change_last_deal"
+                style="@style/TextAppearance.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.format(@string/quote_list_change_last_deal, quote.ltp, quote.chg)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/quote_image"
-                tools:text="Quote name"
-                style="@style/TextAppearance.CardTitle" />
+                tools:text="54.50 (-0.32)" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

@@ -19,7 +19,7 @@ object BuildDependenciesVersions {
     const val TIMBER = "4.7.1"
     const val RETROFIT = "2.9.0"
     const val LOGGING = "4.9.0"
-    const val MOSHI = "1.11.0"
+    const val MOSHI = "1.12.0"
     const val COIL = "0.13.0"
     const val PLAY_CORE = "1.8.2"
     const val LEAKCANARY = "2.7"

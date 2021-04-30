@@ -1,11 +1,8 @@
-import dependencies.Dependencies
 import dependencies.AnnotationProcessorsDependencies
+import dependencies.Dependencies
+import extensions.buildConfigStringField
 import extensions.implementation
 import extensions.kapt
-import extensions.getLocalProperty
-import extensions.buildConfigBooleanField
-import extensions.buildConfigIntField
-import extensions.buildConfigStringField
 
 plugins {
     id("commons.android-library")
@@ -16,6 +13,11 @@ allOpen {
     annotation("com.koidev.core.annotations.OpenClass")
 }
 
+android {
+    buildTypes.forEach {
+        it.buildConfigStringField("TRADERNET_API_BASE_URL", "https://wss.tradernet.ru/")
+    }
+}
 
 dependencies {
     implementation(Dependencies.ROOM)
@@ -32,5 +34,11 @@ dependencies {
 
     kapt(AnnotationProcessorsDependencies.DATABINDING)
     kapt(AnnotationProcessorsDependencies.ROOM)
+
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
+    api("androidx.paging:paging-common-ktx:3.0.0-rc01")
+//    kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+//    kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+//    kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 }
 

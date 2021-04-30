@@ -5,6 +5,7 @@ import com.koidev.core.di.modules.ContextModule
 import com.koidev.core.di.modules.DatabaseModule
 import com.koidev.core.di.modules.NetworkModule
 import com.koidev.core.di.modules.UtilsModule
+import com.koidev.core.domain.repository.TradernetRepository
 import com.koidev.core.utils.ThemeUtils
 import dagger.Component
 import javax.inject.Singleton
@@ -38,4 +39,11 @@ interface CoreComponent {
      * @return ThemeUtils
      */
     fun themeUtils(): ThemeUtils
+
+    /**
+     * Provide dependency graph TradernetRepository
+     *
+     * @return TradernetRepository
+     */
+    fun tradernetRepository(): TradernetRepository
 }

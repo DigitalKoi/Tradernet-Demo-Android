@@ -2,14 +2,12 @@ package com.koidev.dynamicfeatures.quotelist.ui.list.di
 
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.PRIVATE
-import androidx.lifecycle.viewModelScope
-import com.koidev.core.di.scopes.FeatureScope
 import com.koidev.commons.ui.extensions.viewModel
-import com.koidev.dynamicfeatures.quotelist.ui.list.adapter.QuoteListAdapter
+import com.koidev.core.di.scopes.FeatureScope
+import com.koidev.core.domain.repository.TradernetRepository
 import com.koidev.dynamicfeatures.quotelist.ui.list.QuoteListFragment
 import com.koidev.dynamicfeatures.quotelist.ui.list.QuoteListViewModel
-import com.koidev.dynamicfeatures.quotelist.ui.list.paging.QuotePageDataSource
-import com.koidev.dynamicfeatures.quotelist.ui.list.paging.QuotePageDataSourceFactory
+import com.koidev.dynamicfeatures.quotelist.ui.list.adapter.QuoteListAdapter
 import dagger.Module
 import dagger.Provides
 
@@ -27,30 +25,17 @@ class QuoteListModule(
     /**
      * Create a provider method binding for [QuoteListViewModel].
      *
-     * @param dataFactory Data source factory for characters.
+     * @param tradernetData Data source factory for quotes.
      * @return Instance of view model.
      * @see Provides
      */
     @FeatureScope
     @Provides
     fun providesQuoteListViewModel(
-        dataFactory: QuotePageDataSourceFactory
+        tradernetData: TradernetRepository
     ) = fragment.viewModel {
-        QuoteListViewModel(dataFactory)
+        QuoteListViewModel(tradernetData)
     }
-
-    /**
-     * Create a provider method binding for [QuotePageDataSource].
-     *
-     * @return Instance of data source.
-     * @see Provides
-     */
-    @Provides
-    fun providesQuotePageDataSource(
-        viewModel: QuoteListViewModel
-    ) = QuotePageDataSource(
-        scope = viewModel.viewModelScope
-    )
 
     /**
      * Create a provider method binding for [QuoteListAdapter].

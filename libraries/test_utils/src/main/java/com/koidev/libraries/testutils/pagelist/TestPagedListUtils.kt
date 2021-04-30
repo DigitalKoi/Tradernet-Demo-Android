@@ -6,8 +6,8 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.room.RoomDatabase
 import androidx.room.RoomSQLiteQuery
-import com.vmadalin.libraries.testutils.datasource.TestLimitDataSource
-import com.vmadalin.libraries.testutils.livedata.getOrAwaitValue
+import com.koidev.libraries.testutils.datasource.TestLimitDataSource
+import com.koidev.libraries.testutils.livedata.getOrAwaitValue
 import io.mockk.mockk
 
 fun <T> pagedListOf(vararg elements: T, config: PagedList.Config? = null): PagedList<T>? {

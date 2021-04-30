@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.koidev.commons.ui.base.BaseViewHolder
 import com.koidev.dynamicfeatures.quotelist.databinding.ListItemQuoteBinding
 import com.koidev.dynamicfeatures.quotelist.ui.list.QuoteListViewModel
-import com.koidev.dynamicfeatures.quotelist.ui.list.model.QuoteItem
+import com.koidev.core.domain.Quote
 
 /**
  * Class describes quote view and metadata about its place within the [RecyclerView].
@@ -24,7 +24,7 @@ class QuoteViewHolder(
      * @param viewModel Quote list view model.
      * @param item Quote list item.
      */
-    fun bind(viewModel: QuoteListViewModel, item: QuoteItem) {
+    fun bind(viewModel: QuoteListViewModel, item: Quote) {
         binding.viewModel = viewModel
         binding.quote = item
         binding.executePendingBindings()

@@ -25,11 +25,6 @@ sealed class QuoteListViewState : BaseViewState {
     object Loading : QuoteListViewState()
 
     /**
-     * Loading on add more elements into Quote list.
-     */
-    object AddLoading : QuoteListViewState()
-
-    /**
      * Empty Quote list.
      */
     object Empty : QuoteListViewState()
@@ -44,10 +39,6 @@ sealed class QuoteListViewState : BaseViewState {
      */
     object AddError : QuoteListViewState()
 
-    /**
-     * No more elements for adding into Quote list.
-     */
-    object NoMoreElements : QuoteListViewState()
 
     // ============================================================================================
     //  Public helpers methods
@@ -75,13 +66,6 @@ sealed class QuoteListViewState : BaseViewState {
     fun isLoading() = this is Loading
 
     /**
-     * Check if current view state is [AddLoading].
-     *
-     * @return True if is add loading state, otherwise false.
-     */
-    fun isAddLoading() = this is AddLoading
-
-    /**
      * Check if current view state is [Empty].
      *
      * @return True if is empty state, otherwise false.
@@ -101,11 +85,4 @@ sealed class QuoteListViewState : BaseViewState {
      * @return True if is add error state, otherwise false.
      */
     fun isAddError() = this is AddError
-
-    /**
-     * Check if current view state is [NoMoreElements].
-     *
-     * @return True if is no more elements state, otherwise false.
-     */
-    fun isNoMoreElements() = this is NoMoreElements
 }

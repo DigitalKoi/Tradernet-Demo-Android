@@ -12,4 +12,6 @@
         <item>#757575</item>
         <item>#616161</item>
     </string-array>
+
+    <color name="divider_color">#8d8d8d</color>
 </resources>

@@ -2,13 +2,17 @@ package com.koidev.dynamicfeatures.quotelist.ui.list
 
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.PRIVATE
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.paging.LivePagedListBuilder
+import androidx.lifecycle.viewModelScope
 import com.koidev.commons.ui.livedata.SingleLiveData
-import com.koidev.core.network.NetworkState
-import com.koidev.dynamicfeatures.quotelist.ui.list.paging.QuotePageDataSourceFactory
-import com.koidev.dynamicfeatures.quotelist.ui.list.paging.PAGE_MAX_ELEMENTS
+import com.koidev.core.data.network.NetworkState
+import com.koidev.core.domain.repository.TradernetRepository
+import com.koidev.core.domain.Quote
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -18,32 +22,22 @@ import javax.inject.Inject
  */
 class QuoteListViewModel @Inject constructor(
     @VisibleForTesting(otherwise = PRIVATE)
-    val dataSourceFactory: QuotePageDataSourceFactory
+    val tradernetData: TradernetRepository
 ) : ViewModel() {
 
-    @VisibleForTesting(otherwise = PRIVATE)
-    val networkState = Transformations.switchMap(dataSourceFactory.sourceLiveData) {
-        it.networkState
-    }
-
+    private val networkState = MutableLiveData<NetworkState>()
+    val data = MutableLiveData<List<Quote>>()
     val event = SingleLiveData<QuoteListViewEvent>()
-    val data = LivePagedListBuilder(dataSourceFactory, PAGE_MAX_ELEMENTS).build()
     val state = Transformations.map(networkState) {
         when (it) {
             is NetworkState.Success ->
-                if (it.isAdditional && it.isEmptyResponse) {
-                    QuoteListViewState.NoMoreElements
-                } else if (it.isEmptyResponse) {
+                if (it.isEmptyResponse) {
                     QuoteListViewState.Empty
                 } else {
                     QuoteListViewState.Loaded
                 }
             is NetworkState.Loading ->
-                if (it.isAdditional) {
-                    QuoteListViewState.AddLoading
-                } else {
-                    QuoteListViewState.Loading
-                }
+                QuoteListViewState.Loading
             is NetworkState.Error ->
                 if (it.isAdditional) {
                     QuoteListViewState.AddError
@@ -53,30 +47,51 @@ class QuoteListViewModel @Inject constructor(
         }
     }
 
-    // ============================================================================================
-    //  Public methods
-    // ============================================================================================
+    @VisibleForTesting(otherwise = PRIVATE)
+    var retry: (() -> Unit)? = null
 
-    /**
-     * Refresh characters fetch them again and update the list.
-     */
-    fun refreshLoadedCharactersList() {
-        dataSourceFactory.refresh()
+
+    init {
+        subscribeQuoteData()
+    }
+
+    override fun onCleared() {
+        tradernetData.unsubscribe()
+        super.onCleared()
     }
 
     /**
      * Retry last fetch operation to add characters into list.
      */
     fun retryAddCharactersList() {
-        dataSourceFactory.retry()
+        subscribeQuoteData()
     }
 
-    /**
-     * Send interaction event for open character detail view from selected character.
-     *
-     * @param characterId Character identifier.
-     */
-    fun openCharacterDetail(characterId: Long) {
-        event.postValue(QuoteListViewEvent.OpenQuoteDetail(characterId))
+    private fun subscribeQuoteData() {
+        networkState.postValue(NetworkState.Loading())
+        viewModelScope.launch(
+            context = CoroutineExceptionHandler { _, _ ->
+                retry = { subscribeQuoteData() }
+                networkState.postValue(NetworkState.Error())
+            }
+        ) {
+            tradernetData.subscribeToQuotes(REQUEST).collect { newQuote ->
+                data.postValue(newQuote)
+                networkState.postValue(NetworkState.Success(isEmptyResponse = newQuote.isEmpty()))
+            }
+        }
+    }
+
+    private companion object {
+        const val REQUEST = "[" +
+            "\"realtimeQuotes\", " +
+            "[" +
+            "\"RSTI\"," +
+            "\"GAZP\",\"MRKZ\",\"RUAL\",\"HYDR\",\"MRKS\",\"SBER\",\"FEES\",\"TGKA\"," +
+            "\"VTBR\",\"ANH.US\",\"VICL.US\",\"BURG.US\",\"NBL.US\",\"YETI.US\",\"WSFS.US\"," +
+            "\"NIO.US\",\"DXC.US\",\"MIC.US\",\"HSBC.US\",\"EXPN.EU\",\"GSK.EU\",\"SHP.EU\"," +
+            "\"MAN.EU\",\"DB0.EU\",\"MUV2.EU\",\"TATE.EU\",\"KGF.EU\",\"MGGT.EU\",\"SGGD.EU\"" +
+            "]" +
+            "]"
     }
 }

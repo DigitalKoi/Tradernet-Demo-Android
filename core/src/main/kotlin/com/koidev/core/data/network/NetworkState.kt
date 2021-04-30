@@ -1,4 +1,4 @@
-package com.koidev.core.network
+package com.koidev.core.data.network
 
 /**
  * Different states for any network request.

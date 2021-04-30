@@ -11,37 +11,29 @@
             type="com.koidev.dynamicfeatures.quotelist.ui.list.QuoteListViewModel" />
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:onRefreshListener="@{() -> viewModel.refreshLoadedCharactersList()}"
-        app:refreshing="@{viewModel.state.refreshing}">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <include
+            android:id="@+id/include_list"
+            layout="@layout/view_quote_list"
+            app:viewState="@{viewModel.state}" />
 
-            <include
-                android:id="@+id/include_list"
-                layout="@layout/view_quote_list"
-                app:viewState="@{viewModel.state}" />
+        <include
+            android:id="@+id/include_list_empty"
+            layout="@layout/view_quote_list_empty"
+            app:viewState="@{viewModel.state}" />
 
-            <include
-                android:id="@+id/include_list_empty"
-                layout="@layout/view_quote_list_empty"
-                app:viewState="@{viewModel.state}" />
+        <include
+            android:id="@+id/include_list_error"
+            layout="@layout/view_quote_list_error"
+            app:viewState="@{viewModel.state}" />
 
-            <include
-                android:id="@+id/include_list_error"
-                layout="@layout/view_quote_list_error"
-                app:viewState="@{viewModel.state}" />
+        <include
+            android:id="@+id/include_list_loading"
+            layout="@layout/view_quote_list_loading"
+            app:viewState="@{viewModel.state}" />
 
-            <include
-                android:id="@+id/include_list_loading"
-                layout="@layout/view_quote_list_loading"
-                app:viewState="@{viewModel.state}" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

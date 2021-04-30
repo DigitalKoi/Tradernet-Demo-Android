@@ -2,17 +2,17 @@ package com.koidev.dynamicfeatures.quotelist.ui.list
 
 import android.os.Bundle
 import android.view.View
-import androidx.paging.PagedList
 import com.koidev.commons.ui.base.BaseFragment
 import com.koidev.commons.ui.extensions.gridLayoutManager
 import com.koidev.commons.ui.extensions.observe
+import com.koidev.core.data.network.response.QuoteResponse
+import com.koidev.core.domain.Quote
 import com.koidev.dynamicfeatures.quotelist.R
 import com.koidev.dynamicfeatures.quotelist.databinding.FragmentQuoteListBinding
 import com.koidev.dynamicfeatures.quotelist.ui.list.adapter.QuoteListAdapter
 import com.koidev.dynamicfeatures.quotelist.ui.list.adapter.QuoteListAdapterState
 import com.koidev.dynamicfeatures.quotelist.ui.list.di.DaggerQuoteListComponent
 import com.koidev.dynamicfeatures.quotelist.ui.list.di.QuoteListModule
-import com.koidev.dynamicfeatures.quotelist.ui.list.model.QuoteItem
 import com.koidev.tradernetdemo.TradernetApp.Companion.coreComponent
 import javax.inject.Inject
 
@@ -62,22 +62,13 @@ class QuoteListFragment : BaseFragment<FragmentQuoteListBinding, QuoteListViewMo
         viewBinding.viewModel = viewModel
         viewBinding.includeList.quoteList.apply {
             adapter = viewAdapter
-            gridLayoutManager?.spanSizeLookup = viewAdapter.getSpanSizeLookup()
+            itemAnimator = null
         }
     }
 
     // ============================================================================================
     //  Private observers methods
     // ============================================================================================
-
-    /**
-     * Observer view data change on [QuoteListViewModel].
-     *
-     * @param viewData Paged list of characters.
-     */
-    private fun onViewDataChange(viewData: PagedList<QuoteItem>) {
-        viewAdapter.submitList(viewData)
-    }
 
     /**
      * Observer view state change on [QuoteListViewModel].
@@ -88,13 +79,17 @@ class QuoteListFragment : BaseFragment<FragmentQuoteListBinding, QuoteListViewMo
         when (viewState) {
             is QuoteListViewState.Loaded ->
                 viewAdapter.submitState(QuoteListAdapterState.Added)
-            is QuoteListViewState.AddLoading ->
-                viewAdapter.submitState(QuoteListAdapterState.AddLoading)
             is QuoteListViewState.AddError ->
                 viewAdapter.submitState(QuoteListAdapterState.AddError)
-            is QuoteListViewState.NoMoreElements ->
-                viewAdapter.submitState(QuoteListAdapterState.NoMore)
         }
+    }
+    /**
+     * Observer view data change on [QuoteListViewModel].
+     *
+     * @param viewData Paged list of characters.
+     */
+    private fun onViewDataChange(viewData: List<Quote>) {
+        viewAdapter.submitList(viewData)
     }
 
     /**

@@ -8,18 +8,19 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.koidev.commons.ui.base.BaseListAdapter
 import com.koidev.commons.ui.base.BasePagedListAdapter
+import com.koidev.core.data.network.response.QuoteResponse
+import com.koidev.core.domain.Quote
 import com.koidev.dynamicfeatures.quotelist.ui.list.adapter.holders.QuoteViewHolder
 import com.koidev.dynamicfeatures.quotelist.ui.list.adapter.holders.ErrorViewHolder
 import com.koidev.dynamicfeatures.quotelist.ui.list.adapter.holders.LoadingViewHolder
 import com.koidev.dynamicfeatures.quotelist.ui.list.QuoteListViewModel
-import com.koidev.dynamicfeatures.quotelist.ui.list.model.QuoteItem
 import javax.inject.Inject
 
 /**
  * Enum class containing the different type of cell view, with the configuration.
  */
 internal enum class ItemView(val type: Int, val span: Int) {
-    CHARACTER(type = 0, span = 1),
+    QUOTE(type = 0, span = 1),
     LOADING(type = 1, span = 2),
     ERROR(type = 2, span = 2);
 
@@ -37,8 +38,8 @@ internal enum class ItemView(val type: Int, val span: Int) {
 class QuoteListAdapter @Inject constructor(
     @VisibleForTesting(otherwise = PRIVATE)
     val viewModel: QuoteListViewModel
-) : BasePagedListAdapter<QuoteItem>(
-    itemsSame = { old, new -> old.id == new.id },
+) : BaseListAdapter<Quote>(
+    itemsSame = { old, new -> old.ticker == new.ticker },
     contentsSame = { old, new -> old == new }
 ) {
 
@@ -61,7 +62,7 @@ class QuoteListAdapter @Inject constructor(
         viewType: Int
     ): RecyclerView.ViewHolder =
         when (ItemView.valueOf(viewType)) {
-            ItemView.CHARACTER -> QuoteViewHolder(inflater)
+            ItemView.QUOTE -> QuoteViewHolder(inflater)
             ItemView.LOADING -> LoadingViewHolder(inflater)
             else -> ErrorViewHolder(inflater)
         }
@@ -76,7 +77,7 @@ class QuoteListAdapter @Inject constructor(
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemView(position)) {
-            ItemView.CHARACTER ->
+            ItemView.QUOTE ->
                 getItem(position)?.let {
                     if (holder is QuoteViewHolder) {
                         holder.bind(viewModel, it)
@@ -90,20 +91,6 @@ class QuoteListAdapter @Inject constructor(
             }
         }
     }
-
-    /**
-     * Return the stable ID for the item at position.
-     *
-     * @param position Adapter position to query.
-     * @return The stable ID of the item at position.
-     * @see BasePagedListAdapter.getItemId
-     */
-    override fun getItemId(position: Int) =
-        when (getItemView(position)) {
-            ItemView.CHARACTER -> getItem(position)?.id ?: -1L
-            ItemView.LOADING -> 0L
-            ItemView.ERROR -> 1L
-        }
 
     /**
      * Returns the total number of items in the data set held by the adapter.
@@ -166,6 +153,6 @@ class QuoteListAdapter @Inject constructor(
                 ItemView.LOADING
             }
         } else {
-            ItemView.CHARACTER
+            ItemView.QUOTE
         }
 }

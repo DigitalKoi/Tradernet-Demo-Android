@@ -1,7 +1,11 @@
 package com.koidev.commons.ui.bindings
 
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
+import com.koidev.commons.ui.R
 import com.koidev.commons.ui.recyclerview.RecyclerViewItemDecoration
 
 /**
@@ -17,3 +21,4 @@ fun RecyclerView.setItemDecorationSpacing(spacingPx: Float) {
         RecyclerViewItemDecoration(spacingPx.toInt())
     )
 }
+
