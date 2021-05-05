@@ -23,23 +23,20 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             style="@style/AppTheme.SurfaceStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="12dp"
-            android:paddingEnd="0dp">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/quote_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{quote.image}"
-                app:layout_constraintBottom_toBottomOf="@id/quote_ticker"
+                android:background="@android:color/transparent"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="12dp"
                 app:layout_constraintTop_toTopOf="@id/quote_ticker"
+                app:layout_constraintBottom_toBottomOf="@id/quote_ticker"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -47,8 +44,7 @@
                 style="@style/TextAppearance.CardTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/quote_list_item_text_padding"
-                android:paddingBottom="@dimen/quote_list_item_text_padding"
+                android:padding="@dimen/quote_list_item_text_padding"
                 android:text="@{quote.ticker}"
                 app:layout_constraintStart_toEndOf="@id/quote_image"
                 app:layout_constraintTop_toTopOf="parent"
@@ -61,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{quote.name}"
                 app:layout_constraintEnd_toStartOf="@id/quote_change_last_deal"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/quote_image"
                 app:layout_constraintTop_toBottomOf="@id/quote_ticker"
                 tools:text="Quote name" />
 
@@ -70,12 +66,11 @@
                 style="@style/TextAppearance.CardTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:paddingStart="4dp"
                 android:paddingEnd="2dp"
+                android:paddingStart="4dp"
                 android:text="@{String.format(@string/quote_list_pcp, quote.pcp.value)}"
                 app:layout_constraintEnd_toStartOf="@id/quote_arrow"
-                app:layout_constraintTop_toTopOf="@id/quote_ticker"
+                app:layout_constraintTop_toTopOf="@id/quote_image"
                 tools:text="-0.58%" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -86,20 +81,21 @@
                 android:text="@{String.format(@string/quote_list_change_last_deal, quote.ltp, quote.chg)}"
                 android:textColor="@color/textHeadline"
                 app:layout_constraintBottom_toBottomOf="@id/quote_name"
-                app:layout_constraintEnd_toEndOf="@id/pcp"
+                app:layout_constraintEnd_toStartOf="@id/quote_arrow"
                 tools:text="54.50 (-0.32)" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/quote_arrow"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_margin="12dp"
-                android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_arrow_right_24"
-                app:layout_constraintBottom_toTopOf="@id/quote_change_last_deal"
+                android:background="@android:color/transparent"
+                android:layout_margin="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/pcp" />
+                app:layout_constraintBottom_toTopOf="@id/quote_change_last_deal"
+                app:layout_constraintTop_toBottomOf="@id/pcp"
+                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

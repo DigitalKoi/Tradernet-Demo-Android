@@ -28,7 +28,6 @@ fun ImageView.imageUrl(url: String?, @DrawableRes placeholderId: Int?) {
             placeholderId?.let {
                 ContextCompat.getDrawable(context, it)
             } ?: run {
-                this@imageUrl.visibility = GONE
                 val placeholdersColors = resources.getStringArray(R.array.placeholders)
                 val placeholderColor = placeholdersColors[Random.nextInt(placeholdersColors.size)]
                 ColorDrawable(Color.parseColor(placeholderColor))

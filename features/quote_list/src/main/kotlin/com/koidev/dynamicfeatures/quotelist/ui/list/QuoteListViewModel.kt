@@ -66,7 +66,7 @@ class QuoteListViewModel @Inject constructor(
     /**
      * Retry last fetch operation to add characters into list.
      */
-    fun retryAddCharactersList() {
+    fun retryAddQuoteList() {
         subscribeQuoteData()
     }
 
@@ -78,11 +78,9 @@ class QuoteListViewModel @Inject constructor(
                 networkState.postValue(NetworkState.Error())
             }
         ) {
-//            withContext(Dispatchers.Default) {
-                tradernetData.subscribeToQuotes(REQUEST).collect { newQuote ->
-                    data.postValue(newQuote)
-                    networkState.postValue(NetworkState.Success(isEmptyResponse = newQuote.isEmpty()))
-//                }
+            tradernetData.subscribeToQuotes(REQUEST).collect { newQuote ->
+                data.postValue(newQuote)
+                networkState.postValue(NetworkState.Success(isEmptyResponse = newQuote.isEmpty()))
             }
         }
     }

@@ -28,7 +28,7 @@ fun QuoteResponse.toDomain(old: Quote?) =
             status = checkPcpAndReturnUpdateStatus(old?.pcp?.value, pcp),
             time = System.currentTimeMillis()
         ),
-        image = Quote.IMAGE_BASE_URL + ticker,
+        image = Quote.IMAGE_BASE_URL + ticker.toLowerCase(Locale.ROOT),
         chg = chg ?: old?.chg ?: ZERO_VALUE,
         name = name ?: old?.name ?: EMPTY_STRING,
         ltr = ltr ?: old?.ltr ?: EMPTY_STRING,
