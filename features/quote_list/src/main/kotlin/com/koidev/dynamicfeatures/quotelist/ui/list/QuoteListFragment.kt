@@ -3,10 +3,8 @@ package com.koidev.dynamicfeatures.quotelist.ui.list
 import android.os.Bundle
 import android.view.View
 import com.koidev.commons.ui.base.BaseFragment
-import com.koidev.commons.ui.extensions.gridLayoutManager
 import com.koidev.commons.ui.extensions.observe
-import com.koidev.core.data.network.response.QuoteResponse
-import com.koidev.core.domain.Quote
+import com.koidev.core.domain.model.Quote
 import com.koidev.dynamicfeatures.quotelist.R
 import com.koidev.dynamicfeatures.quotelist.databinding.FragmentQuoteListBinding
 import com.koidev.dynamicfeatures.quotelist.ui.list.adapter.QuoteListAdapter

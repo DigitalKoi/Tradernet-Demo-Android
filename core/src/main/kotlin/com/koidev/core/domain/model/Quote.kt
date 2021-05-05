@@ -1,4 +1,4 @@
-package com.koidev.core.domain
+package com.koidev.core.domain.model
 
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
@@ -16,18 +16,24 @@ data class Quote(
     @NonNull
     val ticker: String,
     @NonNull
-    val pcp: String,
+    val pcp: Pcp,
     @NonNull
     val ltr: String,
     @NonNull
     val name: String,
+    @Nullable
+    val ltp: Double?,
     @NonNull
-    val ltp: String,
-    @NonNull
-    val chg: String,
+    val chg: Double?,
     @NonNull
     val image: String
 ) {
+
+    data class Pcp(
+        val value: Double?,
+        val status: PcpUpdateStatus,
+        val time: Long
+    )
 
     companion object {
         const val IMAGE_BASE_URL = "https://tradernet.ru/logos/get-logo-by-ticker?ticker="

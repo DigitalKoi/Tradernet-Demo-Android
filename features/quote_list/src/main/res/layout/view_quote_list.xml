@@ -22,11 +22,14 @@
             android:theme="@style/AppTheme.BackgroundStyle"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="@integer/quote_list_spans"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"
+            android:descendantFocusability="beforeDescendants"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:itemDecorationSpacing="@{@dimen/quote_list_item_padding}"
+            app:itemDecorationSpacing="@{@dimen/quote_list_item_decorator_start_padding}"
             tools:listitem="@layout/list_item_quote" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

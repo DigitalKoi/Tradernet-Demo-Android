@@ -89,7 +89,9 @@ class TradernetApp : SplitCompatApplication() {
      */
     private fun initRandomNightMode() {
         if (BuildConfig.DEBUG) {
-            themeUtils.setNightMode(Random.nextBoolean())
+            themeUtils.setNightMode(
+                Random.nextBoolean()
+            )
         }
     }
 }

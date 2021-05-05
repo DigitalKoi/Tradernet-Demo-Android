@@ -5,8 +5,8 @@
     <string name="quote_list_error_text">Ups… an error occurred on obtain quote list, please swipe down to try again</string>
     <string name="quote_list_add_error_text">Error on fetch more quotes</string>
     <string name="quote_list_add_retry_button">Retry</string>
-    <string name="quote_list_pcp">%s%%</string>
-    <string name="quote_list_change_last_deal">%s (%s)</string>
+    <string name="quote_list_pcp">%1$.2f%%</string>
+    <string name="quote_list_change_last_deal">%1$s (%2$s)</string>
 
     <!--Quote detail-->
     <string name="quote_detail_dialog_loading_text">Loading detail…</string>

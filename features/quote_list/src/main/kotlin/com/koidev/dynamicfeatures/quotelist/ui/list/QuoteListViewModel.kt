@@ -1,5 +1,6 @@
 package com.koidev.dynamicfeatures.quotelist.ui.list
 
+import androidx.annotation.NonNull
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.PRIVATE
 import androidx.lifecycle.MutableLiveData
@@ -9,10 +10,12 @@ import androidx.lifecycle.viewModelScope
 import com.koidev.commons.ui.livedata.SingleLiveData
 import com.koidev.core.data.network.NetworkState
 import com.koidev.core.domain.repository.TradernetRepository
-import com.koidev.core.domain.Quote
+import com.koidev.core.domain.model.Quote
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -56,8 +59,8 @@ class QuoteListViewModel @Inject constructor(
     }
 
     override fun onCleared() {
-        tradernetData.unsubscribe()
         super.onCleared()
+        tradernetData.unsubscribe()
     }
 
     /**
@@ -75,9 +78,11 @@ class QuoteListViewModel @Inject constructor(
                 networkState.postValue(NetworkState.Error())
             }
         ) {
-            tradernetData.subscribeToQuotes(REQUEST).collect { newQuote ->
-                data.postValue(newQuote)
-                networkState.postValue(NetworkState.Success(isEmptyResponse = newQuote.isEmpty()))
+//            withContext(Dispatchers.Default) {
+                tradernetData.subscribeToQuotes(REQUEST).collect { newQuote ->
+                    data.postValue(newQuote)
+                    networkState.postValue(NetworkState.Success(isEmptyResponse = newQuote.isEmpty()))
+//                }
             }
         }
     }

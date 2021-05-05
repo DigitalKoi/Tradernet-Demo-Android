@@ -8,11 +8,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.koidev.commons.ui.base.BaseListAdapter
 import com.koidev.commons.ui.base.BasePagedListAdapter
-import com.koidev.core.data.network.response.QuoteResponse
-import com.koidev.core.domain.Quote
+import com.koidev.core.domain.model.Quote
 import com.koidev.dynamicfeatures.quotelist.ui.list.adapter.holders.QuoteViewHolder
-import com.koidev.dynamicfeatures.quotelist.ui.list.adapter.holders.ErrorViewHolder
-import com.koidev.dynamicfeatures.quotelist.ui.list.adapter.holders.LoadingViewHolder
 import com.koidev.dynamicfeatures.quotelist.ui.list.QuoteListViewModel
 import javax.inject.Inject
 
@@ -20,13 +17,13 @@ import javax.inject.Inject
  * Enum class containing the different type of cell view, with the configuration.
  */
 internal enum class ItemView(val type: Int, val span: Int) {
-    QUOTE(type = 0, span = 1),
-    LOADING(type = 1, span = 2),
-    ERROR(type = 2, span = 2);
+    QUOTE(type = 0, span = 1);
+//    LOADING(type = 1, span = 2),
+//    ERROR(type = 2, span = 2);
 
-    companion object {
-        fun valueOf(type: Int): ItemView? = values().first { it.type == type }
-    }
+//    companion object {
+//        fun valueOf(type: Int): ItemView? = values().first { it.type == type }
+//    }
 }
 
 /**
@@ -61,11 +58,12 @@ class QuoteListAdapter @Inject constructor(
         inflater: LayoutInflater,
         viewType: Int
     ): RecyclerView.ViewHolder =
-        when (ItemView.valueOf(viewType)) {
-            ItemView.QUOTE -> QuoteViewHolder(inflater)
-            ItemView.LOADING -> LoadingViewHolder(inflater)
-            else -> ErrorViewHolder(inflater)
-        }
+//        when (ItemView.valueOf(viewType)) {
+//            ItemView.QUOTE ->
+                QuoteViewHolder(inflater)
+//            ItemView.LOADING -> LoadingViewHolder(inflater)
+//            else -> ErrorViewHolder(inflater)
+//        }
 
     /**
      * Called by RecyclerView to display the data at the specified position.
@@ -83,10 +81,10 @@ class QuoteListAdapter @Inject constructor(
                         holder.bind(viewModel, it)
                     }
                 }
-            ItemView.ERROR ->
-                if (holder is ErrorViewHolder) {
-                    holder.bind(viewModel)
-                }
+//            ItemView.ERROR ->
+//                if (holder is ErrorViewHolder) {
+//                    holder.bind(viewModel)
+//                }
             else -> {
             }
         }
@@ -99,11 +97,11 @@ class QuoteListAdapter @Inject constructor(
      * @see BasePagedListAdapter.getItemCount
      */
     override fun getItemCount() =
-        if (state.hasExtraRow) {
-            super.getItemCount() + 1
-        } else {
+//        if (state.hasExtraRow) {
+//            super.getItemCount() + 1
+//        } else {
             super.getItemCount()
-        }
+//        }
 
     /**
      * Return the view type of the item at position for the purposes of view recycling.
@@ -146,13 +144,13 @@ class QuoteListAdapter @Inject constructor(
      * @return ItemView type.
      */
     internal fun getItemView(position: Int) =
-        if (state.hasExtraRow && position == itemCount - 1) {
-            if (state.isAddError()) {
-                ItemView.ERROR
-            } else {
-                ItemView.LOADING
-            }
-        } else {
+//        if (state.hasExtraRow && position == itemCount - 1) {
+//            if (state.isAddError()) {
+//                ItemView.ERROR
+//            } else {
+//                ItemView.LOADING
+//            }
+//        } else {
             ItemView.QUOTE
-        }
+//        }
 }

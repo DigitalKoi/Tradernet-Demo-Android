@@ -1,6 +1,8 @@
 package com.koidev.core.data.network.socket
 
+import com.koidev.core.data.network.response.ErrorResponse
 import com.koidev.core.data.network.response.QuoteResponse
+import com.koidev.core.data.network.response.TradernetResponse
 import com.squareup.moshi.JsonAdapter
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
@@ -17,13 +19,14 @@ class WebSocketClient @Inject constructor(
     private val request: Request
 ) {
 
-    val channel = Channel<QuoteResponse?>()
+    private val channel = Channel<TradernetResponse>()
 
     private val listener by lazy {
         object : WebSocketListener() {
             override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
                 super.onClosed(webSocket, code, reason)
-                Timber.d("Closed in onFailure")
+                Timber.d("Closed in onClosed")
+
             }
 
             override fun onOpen(webSocket: WebSocket, response: Response) {
@@ -39,34 +42,43 @@ class WebSocketClient @Inject constructor(
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
                 super.onFailure(webSocket, t, response)
                 Timber.d("Closed in onFailure")
+                sendEvent(ErrorResponse(message = "Closed in onFailure"))
             }
 
             override fun onMessage(ws: WebSocket, mess: String) {
                 // Called asynchronously when messages arrive
                 try {
                     Timber.d("New message in onMessageString: $mess")
-                    val fromJson = moshi.fromJson(mess)
-                    GlobalScope.launch {
-                        channel.send(fromJson)
-                        Timber.d("Coroutine scope: ${this}")
-                    }
+                    sendEvent(
+                    moshi.fromJson(mess)
+                        ?: ErrorResponse(message = "Error getting data")
+                    )
                 } catch (e: Exception) {
                     Timber.w("Error getting data with error: ${e.localizedMessage}")
+                    sendEvent(
+                        ErrorResponse(message = "Error getting data")
+                    )
                 }
             }
         }
     }
 
-    private val webSocket: WebSocket by lazy {
-        OkHttpClient().newWebSocket(request, listener)
-    }
-
-    fun startSocketAndSubscribeToData(request: String): Flow<QuoteResponse?> {
+    fun startSocketAndSubscribeToData(request: String): Flow<TradernetResponse> {
         webSocket.send(request)
         return channel.consumeAsFlow()
     }
 
     fun unsubscribe() {
         webSocket.cancel()
+    }
+
+    private val webSocket: WebSocket by lazy {
+        OkHttpClient().newWebSocket(request, listener)
+    }
+
+    private fun sendEvent(response: TradernetResponse) {
+        GlobalScope.launch {
+            channel.send(response)
+        }
     }
 }

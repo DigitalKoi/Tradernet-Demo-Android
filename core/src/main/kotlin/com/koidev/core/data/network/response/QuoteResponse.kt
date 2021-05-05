@@ -4,6 +4,12 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import com.koidev.core.annotations.OpenForTesting
 
+open class TradernetResponse
+
+@OpenForTesting
+data class ErrorResponse(
+    val message: String
+) : TradernetResponse()
 
 /**
  * Tradernet API quote network response item.
@@ -15,7 +21,7 @@ import com.koidev.core.annotations.OpenForTesting
  * @property name Название бумаги
  * @property ltp Цена последней сделки
  * @property chg Изменение цены последней сделки в пунктах относительно цены закрытия предыдущей торговой сессии
-*/
+ */
 @OpenForTesting
 data class QuoteResponse(
     @NonNull
@@ -30,7 +36,8 @@ data class QuoteResponse(
     val ltp: Double?,
     @Nullable
     val chg: Double?
-) {
+) : TradernetResponse() {
+
     fun isNotNullableFields() =
-        pcp != null && ltr != null && name != null && ltp != null && chg != null
+        pcp != null || ltr != null || name != null || ltp != null || chg != null
 }
