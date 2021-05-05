@@ -28,11 +28,11 @@ class HomeViewModel : ViewModel() {
      */
     fun navigationControllerChanged(navController: NavController) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (NAV_FRAGMENTS_ID.contains(destination.id)) {
-                _state.postValue(HomeViewState.NavigationScreen)
-            } else {
+//            if (NAV_FRAGMENTS_ID.contains(destination.id)) {
+//                _state.postValue(HomeViewState.NavigationScreen)
+//            } else {
                 _state.postValue(HomeViewState.FullScreen)
-            }
+//            }
         }
     }
 }
