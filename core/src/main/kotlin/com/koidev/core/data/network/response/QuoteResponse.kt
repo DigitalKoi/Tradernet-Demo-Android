@@ -8,8 +8,13 @@ open class TradernetResponse
 
 @OpenForTesting
 data class ErrorResponse(
-    val message: String
-) : TradernetResponse()
+    val type: ErrorTypeResponse
+) : TradernetResponse() {
+
+    enum class ErrorTypeResponse {
+        FAILURE_CONNECTION, PARSING_DATA
+    }
+}
 
 /**
  * Tradernet API quote network response item.

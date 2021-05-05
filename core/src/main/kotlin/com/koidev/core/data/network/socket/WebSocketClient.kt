@@ -42,7 +42,7 @@ class WebSocketClient @Inject constructor(
             override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
                 super.onFailure(webSocket, t, response)
                 Timber.d("Closed in onFailure")
-                sendEvent(ErrorResponse(message = "Closed in onFailure"))
+                sendEvent(ErrorResponse(type = ErrorResponse.ErrorTypeResponse.FAILURE_CONNECTION))
             }
 
             override fun onMessage(ws: WebSocket, mess: String) {
@@ -51,12 +51,12 @@ class WebSocketClient @Inject constructor(
                     Timber.d("New message in onMessageString: $mess")
                     sendEvent(
                     moshi.fromJson(mess)
-                        ?: ErrorResponse(message = "Error getting data")
+                        ?: ErrorResponse(type = ErrorResponse.ErrorTypeResponse.PARSING_DATA)
                     )
                 } catch (e: Exception) {
                     Timber.w("Error getting data with error: ${e.localizedMessage}")
                     sendEvent(
-                        ErrorResponse(message = "Error getting data")
+                        ErrorResponse(type = ErrorResponse.ErrorTypeResponse.PARSING_DATA)
                     )
                 }
             }

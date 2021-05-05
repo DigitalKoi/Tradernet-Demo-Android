@@ -3,6 +3,8 @@ package com.koidev.core.data.repository
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.VisibleForTesting.PRIVATE
 import com.koidev.core.data.mapper.toDomain
+import com.koidev.core.data.network.response.ErrorResponse
+import com.koidev.core.data.network.response.ErrorResponse.ErrorTypeResponse.*
 import com.koidev.core.data.network.response.QuoteResponse
 import com.koidev.core.data.network.socket.WebSocketClient
 import com.koidev.core.domain.model.PcpUpdateStatus
@@ -22,6 +24,7 @@ class DefaultTradernetRepository @Inject constructor(
     override suspend fun subscribeToQuotes(request: String): Flow<List<Quote>> = webSocketClient
         .startSocketAndSubscribeToData(request)
         .filterNotNull()
+        .onEach { if (it is ErrorResponse && it.type == FAILURE_CONNECTION) throw Exception() }
         .filter { it is QuoteResponse && it.isNotNullableFields() }
         .map { it as QuoteResponse }
         .map { it.toDomain(quoteHashMap[it.ticker]) }
