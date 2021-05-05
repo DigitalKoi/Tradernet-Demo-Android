@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedResources" >
+
+    <!--Dynamic module titles-->
+    <string name="feature_home">Home</string>
+    <string name="feature_quote_list">Quote List</string>
+    <string name="feature_favorite">Favorite</string>
+</resources>

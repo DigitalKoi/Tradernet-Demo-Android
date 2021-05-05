@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_quote_list_graph"
+    app:startDestination="@+id/quote_list_fragment"
+    tools:ignore="UnusedNavigation,UnusedIds">
+    <fragment
+        android:id="@+id/quote_list_fragment"
+        android:name="com.koidev.dynamicfeatures.quotelist.ui.list.QuoteListFragment"
+        android:label="Quotes">
+    </fragment>
+</navigation>
